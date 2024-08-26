@@ -54,48 +54,8 @@ var leonus = {
 
     requestAnimationFrame(animation);
   },
-  photos() {
-    fetch('https://m.leonus.cn/api/v1/memo?creatorId=1&tag=相册').then(res => res.json()).then(data => {
-      let html = '',
-        imgs = [];
-      for (let i = 0; i < data.length; i++) { if (imgs.length < 9) imgs = imgs.concat(data[i].content.match(/\!\[.*?\]\(.*?\)/g)) }
-      imgs.slice(0, 9).forEach(item => {
-        let img = item.replace(/!\[.*?\]\((.*?)\)/g, '$1'),
-          tat = item.replace(/!\[(.*?)\]\(.*?\)/g, '$1').trim();
-        html += `<img src="${img}" alt="${tat}" title="${tat}">`;
-      });
-
-      document.querySelector('.photos .banner-pic-img').innerHTML = html
-    }).catch()
-  },
-  article() {
-    fetch('https://api.leonus.cn/article').then(res => res.json()).then(data => {
-      if (!data) return
-      let dom = document.querySelector('.articles .group-items')
-      let html = ''
-      if (!dom) return
-      data.forEach((item, index) => {
-        html += `
-        <div class="group-item" title="${item.title}">
-          <a class="group-item-icon" href="${item.url}" target="_blank">
-            <img class="group-item-icon-img" src="/img/num/${index + 1}.svg" alt="product-icon" title="product-icon">
-          </a>
-          <div class="group-info-group">
-            <div class="group-info">
-              <a class="title" href="${item.url}" target="_blank">${item.title}</a>
-              <a class="discription" href="${item.url}" target="_blank">${item.desc}</a>
-            </div>
-            <div class="group-info-button">
-              <a class="linkbutton" href="${item.url}" target="_blank">阅读</a>
-            </div>
-          </div>
-        </div>`
-      });
-      dom.innerHTML = html
-    })
-  },
   scrollToTop() {
-    const duration = 600; // in milliseconds
+    const duration = 600;
     const startPosition = window.pageYOffset;
     const distance = -window.pageYOffset;
     let startTime = null;
@@ -132,8 +92,6 @@ new simpleParallax(document.getElementsByClassName('banner-pic-img'), {
   maxTransition: 50,
   overflow: true
 });
-
-
 // 添加菜单点击事件
 document.getElementById("nav-menu").addEventListener('click', () => { if (document.getElementById("body").classList.contains('show-menu')) leonus.hideMenu(); else leonus.showMenu(); }, false)
 
@@ -141,18 +99,11 @@ document.querySelector('.menu-list').onclick = () => { leonus.hideMenu(); }
 
 //阻止菜单滚动
 document.querySelector('.menu-list').addEventListener('wheel', (e) => { e.preventDefault() })
-
-
 document.body.onscroll = leonus.throttle(() => {
   let scroll = document.documentElement.scrollTop || window.pageYOffset
   if (scroll > 500) document.getElementById('go-top').classList.add('show')
   else document.getElementById('go-top').classList.remove('show')
 })
-
-// 文章
-leonus.article()
-// 相册
-leonus.photos()
 
 var notyf = new Notyf({
   duration: 2000,
@@ -177,5 +128,5 @@ var notyf = new Notyf({
     }
   ]
 });
-new ClipboardJS(".qq-btn", { text: function () { return '990320751' } }).on('success', () => { notyf.open({ type: 'qq', message: 'QQ号已复制到剪切板' }) })
-new ClipboardJS(".wx-btn", { text: function () { return 'Li-18181' } }).on('success', () => { notyf.open({ type: 'wechat', message: '微信号已复制到剪切板' }) })
+new ClipboardJS(".qq-btn", { text: function () { return '1418045110' } }).on('success', () => { notyf.open({ type: 'qq', message: 'QQ号已复制到剪切板' }) })
+new ClipboardJS(".wx-btn", { text: function () { return 'NotBoundException' } }).on('success', () => { notyf.open({ type: 'wechat', message: '微信号已复制到剪切板' }) })
